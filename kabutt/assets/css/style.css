@@ -6,6 +6,7 @@
     font-family: 'Helvetica Neue', Arial, sans-serif;
 }
 
+
 body {
     line-height: 1.6;
     color: #333;
@@ -43,6 +44,16 @@ a {
 
 .btn:hover {
     background-color: #333;
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid #000;
+    color: #000;
+}
+
+.btn-outline:hover {
+    background-color: #f5f5f5;
 }
 
 /* ==================== LAYOUT GENERAL ==================== */
@@ -253,7 +264,291 @@ a {
     border-top: 1px solid #333;
     margin-top: 30px;
 }
+/* Estilos para el nuevo diseño */
+.category-page {
+    padding: 20px 0;
+}
+.category-container {
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    gap: 30px;
+}
+/* Sidebar de filtros */
+.category-filters {
+    width: 280px;
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+    padding: 20px;
+    background: #f8f8f8;
+    border-radius: 8px;
+}
 
+
+.filters-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #000;
+}
+
+.filter-section {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e1e1e1;
+    padding-bottom: 1.5rem;
+}
+
+.filter-header {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #333;
+}
+
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.size-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+.size-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.size-option:hover {
+    border-color: #000;
+}
+
+.apply-filters, .reset-filters {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+.apply-filters {
+    background: #000;
+    color: white;
+}
+
+.reset-filters {
+    background: transparent;
+    border: 1px solid #ddd;
+}
+
+.category-content {
+    flex: 1;
+}
+
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.category-title {
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.product-count {
+    font-weight: 400;
+    color: #666;
+    font-size: 1.5rem;
+}
+
+.sort-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.sort-select {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.product-card {
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.product-image-container {
+    overflow: hidden;
+    border-radius: 4px;
+    margin-bottom: 0.75rem;
+    background: #f5f5f5;
+}
+
+.product-image {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.03);
+}
+
+.product-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 2px;
+    z-index: 1;
+}
+
+.product-badge.new {
+    background: #000;
+    color: white;
+}
+
+.product-badge.bestseller {
+    background: #ff0000;
+    color: white;
+}
+
+.product-info {
+    padding: 0 0.25rem;
+}
+
+.product-category {
+    display: block;
+    font-size: 0.75rem;
+    color: #666;
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+}
+
+.product-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.product-colors {
+    display: block;
+    font-size: 0.75rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.product-pricing {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.current-price {
+    font-weight: 600;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 0.8rem;
+}
+
+.discount-tag {
+    color: #ff0000;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.no-products {
+    text-align: center;
+    padding: 2rem;
+    grid-column: 1 / -1;
+}
+@media (max-width: 768px) {
+    .category-container {
+        flex-direction: column;
+    }
+
+    .category-filters {
+        width: 100%;
+        position: static;
+        margin-bottom: 1.5rem;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .category-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .sort-container {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .sort-select {
+        width: 100%;
+    }
+}
 /* ==================== COMPONENTES ==================== */
 /* Productos */
 .featured-products, .related-products, .categories {
@@ -1151,8 +1446,22 @@ input:invalid + .error-message {
     background-color: #e0e0e0;
 }
 
+
 /* ==================== MEDIA QUERIES ==================== */
 @media (max-width: 768px) {
+    .category-container {
+        flex-direction: column;
+    }
+
+    .category-filters {
+        width: 100%;
+        position: static;
+        margin-bottom: 1.5rem;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
     /* Ajustar paddings en móvil */
     .hero-content,
     .featured-products,
