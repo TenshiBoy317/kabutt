@@ -14,7 +14,7 @@ require_once 'includes/header.php';
 
     <section class="hero" style="background-image: url('assets/images/logo.jpg');">
         <div class="hero-content">
-            <h1>ENCUENTRA TU PAR PERFECTO</h1>
+            <h1>ENCUENTRA TU PAR PERFECTO dddddddddddddddd</h1>
             <p>Descubre la última colección de zapatillas deportivas</p>
             <a href="<?php echo SITE_URL; ?>/products/category.php?cat=colección" class="btn">Ver colección</a>
         </div>
