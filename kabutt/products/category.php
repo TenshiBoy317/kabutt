@@ -34,104 +34,140 @@ $page_title = ucfirst($category) . ' - ' . SITE_NAME;
 require_once '../includes/header.php';
 ?>
 
-    <div class="products-page">
-        <div class="products-container">
-            <!-- Barra lateral de filtros -->
-            <aside class="filters-sidebar">
-                <div class="filter-group">
-                    <h3>Filtrar por precio</h3>
-                    <div class="price-ranges">
-                        <button type="button" class="price-range">€0 - €50</button>
-                        <button type="button" class="price-range">€50 - €100</button>
-                        <button type="button" class="price-range">€100 - €200</button>
-                        <button type="button" class="price-range">€200+</button>
-                    </div>
+<!-- Estructura principal rediseñada -->
+<div class="category-container">
+    <!-- Sidebar de filtros estilo Nike -->
+    <aside class="category-filters">
+        <h2 class="filters-title">Filtrar</h2>
+
+        <form id="filters-form" method="GET">
+            <input type="hidden" name="cat" value="<?php echo $category; ?>">
+
+            <!-- Filtro de precios -->
+            <div class="filter-section">
+                <h3 class="filter-header">Precio</h3>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="radio" name="price" value="0-50">
+                        <span>€0 - €50</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="price" value="50-100">
+                        <span>€50 - €100</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="price" value="100-200">
+                        <span>€100 - €200</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="price" value="200+">
+                        <span>€200+</span>
+                    </label>
                 </div>
+            </div>
 
-                <div class="filter-group">
-                    <h3>Tallas</h3>
-                    <div class="size-grid">
-                        <button type="button" class="size-option">35</button>
-                        <button type="button" class="size-option">36</button>
-                        <button type="button" class="size-option">37</button>
-                        <button type="button" class="size-option">38</button>
-                        <button type="button" class="size-option">39</button>
-                        <button type="button" class="size-option">40</button>
-                        <button type="button" class="size-option">41</button>
-                        <button type="button" class="size-option">42</button>
-                        <button type="button" class="size-option">43</button>
-                    </div>
+            <!-- Filtro de tallas -->
+            <div class="filter-section">
+                <h3 class="filter-header">Tallas</h3>
+                <div class="size-options">
+                    <?php
+                    $sizes = ['35', '36', '37', '38', '39', '40', '41', '42', '43'];
+                    foreach ($sizes as $size) {
+                        echo '<label class="size-option">
+                                <input type="checkbox" name="sizes[]" value="'.$size.'">
+                                <span>'.$size.'</span>
+                              </label>';
+                    }
+                    ?>
                 </div>
+            </div>
 
-                <div class="filter-group">
-                    <h3>Ofertas especiales</h3>
-                    <div class="deals-checkbox">
-                        <input type="checkbox" id="deal1">
-                        <label for="deal1">Envío gratis</label>
-                    </div>
-                    <div class="deals-checkbox">
-                        <input type="checkbox" id="deal2">
-                        <label for="deal2">Descuentos</label>
-                    </div>
+            <!-- Filtro de ofertas -->
+            <div class="filter-section">
+                <h3 class="filter-header">Ofertas</h3>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox" name="free_shipping">
+                        <span>Envío gratis</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" name="discounts">
+                        <span>Con descuento</span>
+                    </label>
                 </div>
-            </aside>
+            </div>
 
-            <!-- Contenido principal -->
-            <main class="products-main-content">
-                <div class="products-header">
-                    <h1><?php echo ucfirst($category); ?> <span>(<?php echo $total_products; ?>)</span></h1>
+            <button type="submit" class="apply-filters">Aplicar filtros</button>
+            <button type="reset" class="reset-filters">Limpiar</button>
+        </form>
+    </aside>
 
-                    <div class="sort-options">
-                        <span>Mostrando <?php echo count($products); ?> productos</span>
-                        <select class="sort-select">
-                            <option>Ordenar por: Destacados</option>
-                            <option>Precio: Menor a mayor</option>
-                            <option>Precio: Mayor a menor</option>
-                            <option>Novedades</option>
-                        </select>
-                    </div>
-                </div>
+    <!-- Contenido principal de productos -->
+    <main class="category-content">
+        <div class="category-header">
+            <h1 class="category-title"><?php echo ucfirst($category); ?> <span class="product-count">(<?php echo $total_products; ?>)</span></h1>
 
-                <!-- Grid de productos -->
-                <section class="products-grid">
-                    <?php if (empty($products)): ?>
-                        <div class="no-products">
-                            <p>No hay productos disponibles en esta categoría.</p>
-                            <a href="<?php echo SITE_URL; ?>" class="btn">Volver al inicio</a>
-                        </div>
-                    <?php else: ?>
-                        <?php foreach ($products as $product): ?>
-                            <div class="product-card">
-                                <?php if ($product['is_new']): ?>
-                                    <div class="product-badge">Nuevo</div>
-                                <?php elseif ($product['is_bestseller']): ?>
-                                    <div class="product-badge">Más vendido</div>
-                                <?php endif; ?>
-
-                                <a href="<?php echo SITE_URL; ?>/products/detail.php?id=<?php echo $product['id']; ?>">
-                                    <img src="<?php echo SITE_URL; ?>/assets/images/products/<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>">
-                                    <div class="product-info">
-                                        <span class="product-category"><?php echo $product['category']; ?></span>
-                                        <h3 class="product-title"><?php echo $product['name']; ?></h3>
-                                        <span class="product-colors"><?php echo $product['colors']; ?> colores</span>
-                                        <div class="product-price">
-                                            <span class="current-price"><?php echo number_format($product['price'], 2); ?> €</span>
-                                            <?php if ($product['original_price'] > $product['price']): ?>
-                                                <span class="original-price"><?php echo number_format($product['original_price'], 2); ?> €</span>
-                                                <?php
-                                                $discount = round(($product['original_price'] - $product['price']) / $product['original_price'] * 100);
-                                                ?>
-                                                <span class="discount">-<?php echo $discount; ?>%</span>
-                                            <?php endif; ?>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </section>
-            </main>
+            <div class="sort-container">
+                <span class="showing-count">Mostrando <?php echo count($products); ?> de <?php echo $total_products; ?> productos</span>
+                <select class="sort-select" id="sort-products">
+                    <option value="featured">Destacados</option>
+                    <option value="price_asc">Precio: Menor a mayor</option>
+                    <option value="price_desc">Precio: Mayor a menor</option>
+                    <option value="newest">Novedades</option>
+                </select>
+            </div>
         </div>
-    </div>
+
+        <!-- Grid de productos -->
+        <div class="products-grid">
+            <?php if (empty($products)): ?>
+                <div class="no-products">
+                    <p>No hay productos disponibles en esta categoría.</p>
+                    <a href="<?php echo SITE_URL; ?>" class="btn">Volver al inicio</a>
+                </div>
+            <?php else: ?>
+                <?php foreach ($products as $product): ?>
+                    <article class="product-card">
+                        <a href="<?php echo SITE_URL; ?>/products/detail.php?id=<?php echo $product['id']; ?>" class="product-link">
+                            <?php if ($product['is_new']): ?>
+                                <span class="product-badge new">Nuevo</span>
+                            <?php elseif ($product['is_bestseller']): ?>
+                                <span class="product-badge bestseller">Más vendido</span>
+                            <?php endif; ?>
+
+                            <div class="product-image-container">
+                                <img src="<?php echo SITE_URL; ?>/assets/images/products/<?php echo $product['image']; ?>"
+                                     alt="<?php echo htmlspecialchars($product['name']); ?>"
+                                     class="product-image">
+                            </div>
+
+                            <div class="product-info">
+                                <span class="product-category"><?php echo $product['category']; ?></span>
+                                <h3 class="product-title"><?php echo $product['name']; ?></h3>
+                                <span class="product-colors"><?php echo $product['colors']; ?> colores</span>
+
+                                <div class="product-pricing">
+                                    <?php if ($product['original_price'] > $product['price']): ?>
+                                        <span class="original-price"><?php echo number_format($product['original_price'], 2); ?> €</span>
+                                        <?php
+                                        $discount = round(($product['original_price'] - $product['price']) / $product['original_price'] * 100);
+                                        ?>
+                                        <span class="discount-tag">-<?php echo $discount; ?>%</span>
+                                    <?php endif; ?>
+                                    <span class="current-price"><?php echo number_format($product['price'], 2); ?> €</span>
+                                </div>
+                            </div>
+                        </a>
+                    </article>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+
+        <!-- Paginación (puedes implementarla después) -->
+        <div class="pagination-container">
+            <!-- Aquí iría tu lógica de paginación -->
+        </div>
+    </main>
+</div>
 
 <?php require_once '../includes/footer.php'; ?>
